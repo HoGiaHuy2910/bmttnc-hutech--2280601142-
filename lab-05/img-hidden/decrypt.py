@@ -2,7 +2,8 @@ import sys
 from PIL import Image
 
 def decode_image(image_path):
-    img = Image.open(image_path)
+    # 🔧 FIX 1: luôn chuyển ảnh sang RGB
+    img = Image.open(image_path).convert("RGB")
     width, height = img.size
 
     binary_data = ""
@@ -10,12 +11,12 @@ def decode_image(image_path):
 
     for row in range(height):
         for col in range(width):
-            pixel = img.getpixel((col, row))
+            pixel = list(img.getpixel((col, row)))  # [R, G, B]
 
             for channel in range(3):
                 binary_data += format(pixel[channel], '08b')[-1]
 
-                # Khi gặp delimiter thì dừng
+                # 🔧 FIX 2: gặp delimiter thì dừng ngay
                 if binary_data.endswith(delimiter):
                     binary_data = binary_data[:-len(delimiter)]
                     return binary_to_text(binary_data)

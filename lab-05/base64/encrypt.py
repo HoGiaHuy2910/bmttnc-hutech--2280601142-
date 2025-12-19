@@ -6,7 +6,7 @@ def main():
     encoded_bytes = base64.b64encode(input_string.encode("utf-8"))
     encoded_string = encoded_bytes.decode("utf-8")
     
-    with open("data.txt", " w") as file:
+    with open("data.txt","w") as file:
         file.write(encoded_string)
         
     print("Da ma hoa va ghi vao tep data.txt")
